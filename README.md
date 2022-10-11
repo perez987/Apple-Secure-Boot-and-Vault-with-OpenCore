@@ -169,7 +169,7 @@ Windows boots fine with Secure Boot enabled or disabled in BIOS. But Opencore on
 
 By default our hacks work with BIOS secure boot disabled since always, this is one of the BIOS options required to boot with OpenCore or Clover, but I wanted to find some not very complicated way of running OpenCore with PC BIOS Secure Boot enabled (if possible, probably not for now at least in a simple way). When booting OpenCore with Secure Boot mode enabled in BIOS, a warning saying "Secure boot violation. Invalid signature detected. Check secure boot policy in setup" is displayed by the firmware before OpenCore that fails and does not boot.
 
-UEFI Secure Boot with OpenCore has its own post: [[GUIDE] OpenCore and UEFI Secure Boot using Windows Subsystem for Linux](https://www.tonymacx86.com/threads/guide-opencore-and-uefi-secure-boot-using-windows-subsystem-for-linux.317037/).
+UEFI Secure Boot with OpenCore has its own post: [[GUIDE] OpenCore and UEFI Secure Boot using Windows Subsystem for Linux](https://github.com/perez987/OpenCore-UEFI-Secure-Boot/).
 
 ### Vault + UEFI Secure Boot
 
