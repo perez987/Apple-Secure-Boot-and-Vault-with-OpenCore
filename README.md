@@ -1,4 +1,4 @@
-# Apple Secure Boot with OpenCore in the _Hackintosh_
+# Apple Secure Boot with OpenCore
  
 **Apple Secure Boot** is the technology used in Macs to verify the integrity of the operating system at boot: *boot loader > kernel > system volume snapshot*. If this check fails, macOS won't boot.
 
