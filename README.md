@@ -173,4 +173,4 @@ UEFI Secure Boot with OpenCore has its own post: [OpenCore and UEFI Secure Boot 
 
 ### Vault + UEFI Secure Boot
 
-At the moment it is not possible to have UEFI Secure Boot + Vault at the same time. Since both systems sign or modify the OpenCore.efi file, when the second applied modifies this file it breaks the integrity kept by the first applied. It doesn't matter which of 2 is applied first, after doing digital signature + vault (or in reverse order) OpenCore doesn't boot with a corruption notice of OpenCore.efi.
+At the moment it is not possible to have UEFI Secure Boot + Vault at the same time. Since both systems sign or modify the OpenCore.efi file, when the second is applied modifies this file and breaks the integrity kept by the first applied. It doesn't matter which of the 2 is applied first, after doing digital signature + vault (or in reverse order) OpenCore doesn't boot with a corruption notice of OpenCore.efi.
