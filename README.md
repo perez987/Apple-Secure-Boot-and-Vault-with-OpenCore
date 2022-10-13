@@ -6,7 +6,7 @@ Apple Secure Boot only works during the boot process, once macOS is running it n
 
 It is highly recommended to read the Dortania guides: [applesecureboot.md](https://github.com/dortania/OpenCore-Post-Install/blob/c0e7f282975f7d6224878b71648c27ce0ed304e6/universal/security/applesecureboot.md), [uefisecureboot.md](https://github.com/dortania/OpenCore-Post-Install/blob/c0e7f282975f7d6224878b71648c27ce0ed304e6/universal/security/uefisecureboot.md) and [vault.md](https://github.com/dortania/OpenCore-Post-Install/blob/c0e7f282975f7d6224878b71648c27ce0ed304e6/universal/security/vault.md).
 
-### SecureBootModel changes in OpenCore 0.7.2
+## SecureBootModel changes in OpenCore 0.7.2
 
 Apple defines 3 Secure Boot modes:
 
@@ -85,7 +85,7 @@ iMac19,1 (March 2019 - Minimum macOS 10.14.4) isn't in the list because it has n
 
 Of course, you can also set Secure Boot Model to the value, from the list above, that corresponds to the macOS version you want to boot (example j160 for macOS Catalina 10.15.1). If you are suspicious of old operating systems, you can always put the model that supports only the macOS versions that you need and not the older ones. For example, j140k will filter 10.13 and lower, j152f will filter 10.14 and lower, x86legacy will filter 10.15 and lower.
 
-### Apple Secure Boot in the hackintosh
+## Apple Secure Boot in the hackintosh
 
 How to get Apple Secure Boot in the Hackintosh? OpenCore provides 3 keys to enable Secure Boot:
 
@@ -125,7 +125,7 @@ SecureBootModel and ApECID:
 - with SecureBootModel=x86legacy or any of the valid values >> medium security (%01)
 - with SecureBootModel= any of the T2 values plus ApECID non zero >> full security (%02).
 
-### Vault
+## OpenCore Vault
 
 It's a secure boot for OpenCore, digitally signing OpenCore.efi so no one can modify boot loader files except you.
 
@@ -161,7 +161,7 @@ How to disable Vault?
 - Misc >> Security >> Vault >> Optional
 - Remove vault.plist and vault.sig.
 
-### UEFI Secure Boot option in BIOS
+## UEFI Secure Boot option in BIOS
 
 UEFI Secure Boot only allows to boot OS's that are signed and trusted. PC Bios comes with Microsoft keys as trusted. So, to boot Windows with Secure Boot, you need to enable Secure Boot in BIOS and to have Windows 10/11 keys (usually included in the motherboard firmware). But this is only for Windows. macOS has its own implementation Apple Secure Boot, this feature can be done with Secure Boot disabled in BIOS. So, these are 2 separate systems: PC BIOS Secure Boot and Apple Secure Boot.
 
@@ -171,7 +171,7 @@ By default our hacks work with BIOS secure boot disabled since always, this is o
 
 UEFI Secure Boot with OpenCore has its own post: [OpenCore and UEFI Secure Boot with Windows Subsystem for Linux](https://github.com/perez987/OpenCore-UEFI-Secure-Boot/).
 
-### OpenCore Vault + UEFI Secure Boot
+## OpenCore Vault + UEFI Secure Boot
 
 <strike>At the moment it is not possible to have UEFI Secure Boot + Vault at the same time. Since both systems sign or modify the OpenCore.efi file, when the second is applied modifies this file and breaks the integrity kept by the first applied. It doesn't matter which of the 2 is applied first, after doing digital signature + vault (or in reverse order) OpenCore doesn't boot with a corruption notice of OpenCore.efi.</strike>
 
