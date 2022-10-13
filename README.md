@@ -10,11 +10,11 @@ It is highly recommended to read the Dortania guides: [applesecureboot.md](https
 
 Apple defines 3 Secure Boot modes:
 
-<table>
-<tr><td>Full Security: Only allows to boot the installed operating system or another signed version of macOS in which Apple currently trusts. It also checks the integrity of the installed version. If the check fails, the system offers to reinstall macOS or boot from a different disk</td></tr>
-<tr><td>Medium Security: Checks that the installed version of macOS is legitimate but not the integrity of the system. Lets you boot any signed version of macOS in which Apple has ever trusted</td></tr>
-<tr><td> No Security: other systems or versions different from those mentioned in the secure options are allowed. There are no requirements on the boot operating system</td></tr>
-</table>
+|Apple Secure Boot|
+|-----------------|
+|Full Security: Only allows to boot the installed operating system or another signed version of macOS in which Apple currently trusts. It also checks the integrity of the installed version. If the check fails, the system offers to reinstall macOS or boot from a different disk|
+|Medium Security: Checks that the installed version of macOS is legitimate but not the integrity of the system. Lets you boot any signed version of macOS in which Apple has ever trusted|
+| No Security: other systems or versions different from those mentioned in the secure options are allowed. There are no requirements on the boot operating system|
 
 Apple Secure Boot state on Intel-based Macs can be obtained from NVRAM:
 
