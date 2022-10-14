@@ -191,4 +191,4 @@ It is a tedious task. The most boring part is copying files between macOS and Ub
 
 Quite heavy, but I've seen that it's possible to have Vault and UEFI Secure Boot at the same time.
 
-![Ubuntu on UTM](utm-ubuntu.png?raw=true)
+![Ubuntu on UTM](Ubuntu-UTM.png?raw=true)
