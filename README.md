@@ -85,6 +85,8 @@ iMac19,1 (March 2019 - Minimum macOS 10.14.4) isn't in the list because it has n
 
 Of course, you can also set Secure Boot Model to the value, from the list above, that corresponds to the macOS version you want to boot (example j160 for macOS Catalina 10.15.1). If you are suspicious of old operating systems, you can always put the model that supports only the macOS versions that you need and not the older ones. For example, j140k will filter 10.13 and lower, j152f will filter 10.14 and lower, x86legacy will filter 10.15 and lower.
 
+---
+
 ## Apple Secure Boot in the hackintosh
 
 How to get Apple Secure Boot in the Hackintosh? OpenCore provides 3 keys to enable Secure Boot:
@@ -125,6 +127,8 @@ SecureBootModel and ApECID:
 - with SecureBootModel=x86legacy or any of the valid values >> medium security (%01)
 - with SecureBootModel= any of the T2 values plus ApECID non zero >> full security (%02).
 
+---
+
 ## OpenCore Vault
 
 It's a secure boot for OpenCore, digitally signing OpenCore.efi so no one can modify boot loader files except you.
@@ -161,34 +165,45 @@ How to disable Vault?
 - Misc >> Security >> Vault >> Optional
 - Remove vault.plist and vault.sig.
 
-## UEFI Secure Boot option in BIOS
+---
+
+## UEFI Secure Boot
 
 UEFI Secure Boot only allows to boot OS's that are signed and trusted. PC Bios comes with Microsoft keys as trusted. So, to boot Windows with Secure Boot, you need to enable Secure Boot in BIOS and to have Windows 10/11 keys (usually included in the motherboard firmware). But this is only for Windows. macOS has its own implementation Apple Secure Boot, this feature can be done with Secure Boot disabled in BIOS. So, these are 2 separate systems: PC BIOS Secure Boot and Apple Secure Boot.
 
-Windows boots fine with Secure Boot enabled or disabled in BIOS. But Opencore only boots with Secure Boot disabled in BIOS (as expected). This is not important for users who only use macOS. But since Windows 11, nearing its final release, seems to require Secure Boot enabled in BIOS, it's important for users who want to have macOS and Windows together and plan to upgrade to Windows 11.
+Windows boots fine with Secure Boot enabled or disabled in BIOS. But Opencore only boots with Secure Boot disabled in BIOS (as expected). This is not important for macOS-only users. But Windows 11, beta yet, seems to require Secure Boot enabled in BIOS (this can change in final release) and there may be applications requirin Secure Boot or even business laptops with this feature enabled by default, it maybe is important for users who have macOS and Windows 11. When booting OpenCore with Secure Boot mode enabled in BIOS, a warning saying "Secure boot violation. Invalid signature detected. Check secure boot policy in setup" is displayed by the firmware before OpenCore picker. And OpenCore does not boot.
 
-By default our hacks work with BIOS secure boot disabled since always, this is one of the BIOS options required to boot with OpenCore or Clover, but I wanted to find some not very complicated way of running OpenCore with PC BIOS Secure Boot enabled (if possible, probably not for now at least in a simple way). When booting OpenCore with Secure Boot mode enabled in BIOS, a warning saying "Secure boot violation. Invalid signature detected. Check secure boot policy in setup" is displayed by the firmware before OpenCore that fails and does not boot.
+By default our hacks work with BIOS secure boot disabled since always, this is one of the BIOS options required to boot with OpenCore or Clover. There are some not very complicated way of running OpenCore with PC BIOS Secure Boot enabled. This topic has its own post: [OpenCore and UEFI Secure Boot](https://github.com/perez987/OpenCore-and-UEFI-Secure-Boot).
 
-UEFI Secure Boot with OpenCore has its own post: [OpenCore and UEFI Secure Boot with Windows Subsystem for Linux](https://github.com/perez987/OpenCore-UEFI-Secure-Boot/).
+---
 
 ## OpenCore Vault + UEFI Secure Boot
-
-<strike>At the moment it is not possible to have UEFI Secure Boot + Vault at the same time. Since both systems sign or modify the OpenCore.efi file, when the second is applied modifies this file and breaks the integrity kept by the first applied. It doesn't matter which of the 2 is applied first, after doing digital signature + vault (or in reverse order) OpenCore doesn't boot with a corruption notice of OpenCore.efi.</strike>
 
 There is a way to have UEFI Secure Boot and OpenCore vault at the same time, it's in the OpenCore Configuration.pdf file although the instructions are short and confusing in my opinion. It is a heavy task but at least it is possible to carry it out.
 
 The key is in the order the files are signed, both with personal keys for the UEFI firmware and hashes created from vault.
 
-This requires moving from macOS to Windows and viceversa a few times. In order not to have to switch from mac to windows so many times, I have installed [Ubuntu 14.04](https://mac.getutm.app/gallery/) virtual machine with [UTM](https://github.com/utmapp/UTM) on macOS. The steps are:
+This requires moving from macOS to Windows and viceversa a few times. In order not to have to switch from mac to windows so many times, you can install Ubuntu virtual machine with UTM. UTM is an app that allows you to use virtual machines on macOS and iOS. It is free and open software. Information and downloads are available on [GitHub](https://github.com/utmapp/UTM) and on the [website](https://mac.getutm.app).
 
-1. On Ubuntu >> digitally sign all OC 0.8.5.efi files except OpenCore.efi
-2. On macOS >> vault the EFI folder with the signed files, including OpenCore.efi not digitally signed yet
-3. On Ubuntu >> sign the OpenCore.efi file which already has Vault applied
+UTM offers preconfigured virtual machines that you just have to attach to the app and start, it is not necessary to previously install the operating system. You can visit the [Gallery of Virtual Machines](https://mac.getutm.app/gallery/).
+
+Among the preinstalled virtual machines there is no Ubuntu 22.04 but UTM has a [guide](https://docs.getutm.app/guides/ubuntu/) to download and install this version of Ubuntu. I have followed this guide to have an Ubuntu 22.04 virtual system on macOS.
+
+It is important to configure the clipboard and shared folder between macOS and Linux. The guide explains how to do it. Shared clipboard works after installing SPICE Agent which also improves screen resolutions and dynamic switching between them. Its installation is highly recommended, as is QEMU Agent (Additional features such as time syncing, etc.).
+
+Directory sharing can work in 2 different ways: SPICE WebDav or VirtFS. I have used VirtFS which allows you to show the macOS shared folder in the Ubuntu file system. To do this you have to do in Terminal:
+
+- Create the shared directory `sudo mkdir Shared`
+- Mount the shared directory<br>`sudo mount -t 9p -o trans=virtio share Shared -oversion=9p2000.L`
+- Add an entry in fstab to mount the shared folder at boot
+	- Open fstab `sudo pico /etc/fstab`
+	- Add this entry<br>`share /home/yo/Shared 9p trans=virtio,version=9p2000.L,rw,_netdev,nofail 0 0`
+	- Save with Ctrl + O and exit with Ctrl + X.
+
+The steps to enable both OpenCore Vault and UEFI Secure Boot are:
+
+1. On Ubuntu >> digitally sign all OC .efi files but OpenCore.efi
+2. On macOS >> vault the EFI folder with the signed files, including OpenCore.efi (not digitally signed yet)
+3. On Ubuntu >> sign OpenCore.efi (it has Vault already applied)
 4. Back in macOS >> copy the EFI folder into the EFI partition
-5. Reboot >> enable UEFI Secure Boot >> OpenCore.
-
-It is a tedious task. The most boring part is copying files between macOS and Ubuntu. UTM in theory has the option to define a shared folder to exchange files but I have not been able to make it work. I have used Wetransfer in Mac and Linux browsers to exchange files between both systems. The shared clipboard between Mac and Linux does work so at least text can be exchanged.
-
-Quite heavy, but I've seen that it's possible to have Vault and UEFI Secure Boot at the same time.
-
-![Ubuntu on UTM](Ubuntu-UTM.png?raw=true)
+5. Reboot >> enable UEFI Secure Boot >> boot OpenCore.
