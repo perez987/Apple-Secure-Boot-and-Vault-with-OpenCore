@@ -6,12 +6,13 @@ Apple Secure Boot only works during the boot process, once macOS is running it n
 
 It is highly recommended to read the Dortania guides: [applesecureboot.md](https://github.com/dortania/OpenCore-Post-Install/blob/c0e7f282975f7d6224878b71648c27ce0ed304e6/universal/security/applesecureboot.md), [uefisecureboot.md](https://github.com/dortania/OpenCore-Post-Install/blob/c0e7f282975f7d6224878b71648c27ce0ed304e6/universal/security/uefisecureboot.md) and [vault.md](https://github.com/dortania/OpenCore-Post-Install/blob/c0e7f282975f7d6224878b71648c27ce0ed304e6/universal/security/vault.md).
 
+---
+
 ## SecureBootModel changes in OpenCore 0.7.2
 
-Apple defines 3 Secure Boot modes:
-
-|Apple Secure Boot|
-|-----------------|
+There are 3 modes of Apple Secure Boot:
+|    |
+|-----|
 |Full Security: Only allows to boot the installed operating system or another signed version of macOS in which Apple currently trusts. It also checks the integrity of the installed version. If the check fails, the system offers to reinstall macOS or boot from a different disk|
 |Medium Security: Checks that the installed version of macOS is legitimate but not the integrity of the system. Lets you boot any signed version of macOS in which Apple has ever trusted|
 | No Security: other systems or versions different from those mentioned in the secure options are allowed. There are no requirements on the boot operating system|
