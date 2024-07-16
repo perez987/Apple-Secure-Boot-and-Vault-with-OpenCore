@@ -174,7 +174,7 @@ UEFI Secure Boot only allows to boot OS's that are signed and trusted. PC Bios c
 
 Windows boots fine with Secure Boot enabled or disabled in BIOS. But Opencore only boots with Secure Boot disabled in BIOS (as expected). This is not important for macOS-only users. But Windows 11, beta yet, seems to require Secure Boot enabled in BIOS (this can change in final release) and there may be applications requirin Secure Boot or even business laptops with this feature enabled by default, it maybe is important for users who have macOS and Windows 11. When booting OpenCore with Secure Boot mode enabled in BIOS, a warning saying "Secure boot violation. Invalid signature detected. Check secure boot policy in setup" is displayed by the firmware before OpenCore picker. And OpenCore does not boot.
 
-By default our hacks work with BIOS secure boot disabled since always, this is one of the BIOS options required to boot with OpenCore or Clover. There are some not very complicated way of running OpenCore with PC BIOS Secure Boot enabled. This topic has its own post: [OpenCore and UEFI Secure Boot](https://github.com/perez987/OpenCore-and-UEFI-Secure-Boot).
+By default our hacks work with BIOS secure boot disabled since always, this is one of the BIOS options required to boot with OpenCore or Clover. There are some not very complicated way of running OpenCore with PC BIOS Secure Boot enabled. This topic has its own repo: [OpenCore and UEFI Secure Boot](https://github.com/perez987/OpenCore-and-UEFI-Secure-Boot).
 
 ---
 
